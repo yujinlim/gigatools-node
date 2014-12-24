@@ -1,6 +1,7 @@
 'use strict';
 var chai = require('chai');
 var proxyquire = require('proxyquire');
+var bluebird = require('bluebird');
 var expect = chai.expect;
 
 describe('Gigaapi', function() {
@@ -29,6 +30,23 @@ describe('Gigaapi#country', function() {
         expect(data.qs).to.be.a('object');
         expect(data.qs['countries[]']).to.eql(countries);
       }
+    });
+
+    gigaApi(apiKey).country(countries);
+  });
+
+  describe('Gigaapi#country#validations', function(done) {
+    proxyquire.noCallThru();
+    
+    var request = function(){
+      return new bluebird(function() {
+        return [];
+        done();
+      });
+    };
+
+    gigaApi = proxyquire('../lib/gigaapi', {
+      request: request
     });
 
     gigaApi(apiKey).country(countries);

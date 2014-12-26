@@ -1,3 +1,4 @@
+/*jshint expr: true*/
 'use strict';
 var chai = require('chai');
 var proxyquire = require('proxyquire').noPreserveCache();
@@ -6,7 +7,6 @@ var expect = chai.expect;
 
 // Unit Testing
 describe('Gigaapi#country', function() {
-  var requestStub = {};
   var countries = ['Argentina'];
   var apiKey = '123';
   var gigaApi;
@@ -19,7 +19,7 @@ describe('Gigaapi#country', function() {
         expect(data.qs).to.be.a('object');
         expect(data.qs['countries[]']).to.eql(countries);
         done();
-        return bluebird.resolve([])
+        return bluebird.resolve([]);
       }
     });
 

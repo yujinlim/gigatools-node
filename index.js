@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 var bluebird  = require('bluebird');
 var gigatool  = require('./lib/gigatool');
@@ -15,7 +16,7 @@ if (!process.env.BATCH) {
   throw new Error('BATCH environment variable is needed');
 }
 
-tool = gigatool(size, page, dataDir);
+var tool = gigatool(size, page, dataDir);
 
 module.exports = bluebird.all([tool.clean(startDate), tool.continuous()])
   .finally(function(){

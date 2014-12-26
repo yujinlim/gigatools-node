@@ -3,7 +3,6 @@
 
 var chai = require('chai');
 var fs = require('fs');
-var noop = require('lodash.noop');
 var rimraf = require('rimraf');
 var async = require('async');
 var moment = require('moment');

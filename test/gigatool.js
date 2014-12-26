@@ -9,7 +9,6 @@ var moment = require('moment');
 var sinon = require('sinon');
 var fs = require('fs');
 var factory = require('autofixture');
-var noop = require('lodash.noop');
 var rimraf = require('rimraf');
 
 var expect = chai.expect;

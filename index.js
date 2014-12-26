@@ -1,16 +1,25 @@
-// CLI tools
+#!/usr/bin/env node
+
 var bluebird  = require('bluebird');
+var gigatool  = require('./lib/gigatool');
 var debug     = require('debug')('index');
 var size      = 20;
 
-// requires parameters
-var page      = process.env.batch || 1;
-var startDate = process.env.start;
-var dataDir   = process.env.dataDir;
+var page      = process.env.BATCH;
+var startDate = process.env.START;
+var dataDir   = process.env.DATADIR;
 debug(page, startDate, dataDir);
-var gigatool  = require('./lib/gigatool')(size, page, dataDir);
 
-bluebird.all([gigatool.clean(startDate), gigatool.continuous()])
+// requires parameters
+if (!process.env.BATCH) {
+  throw new Error('BATCH environment variable is needed');
+}
+
+tool = gigatool(size, page, dataDir);
+
+module.exports = bluebird.all([tool.clean(startDate), tool.continuous()])
   .finally(function(){
-    process.exit(0);
+    if (!process.env.TEST) {
+      process.exit(0);
+    }
   });
